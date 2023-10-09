@@ -10,13 +10,11 @@ func main(){
 
 	switch option {
 	case 1:
-		fmt.Println("Monitoring")
+		monitoring()
 	case 2:
-		fmt.Println("Show Logs")
+		showLogs()
 	case 0:
-		fmt.Println("Exit")
-		fmt.Println("Good bye!")
-		os.Exit(0)
+		exitCode()
 	default:
 		fmt.Println("Unknown option")
 		os.Exit(-1)
@@ -42,4 +40,18 @@ func readOption() int {
 	fmt.Println("Chosen option:", readOpt)
 
 	return readOpt
+}
+
+func monitoring() {
+	fmt.Println("Monitoring")
+}
+
+func showLogs() {
+	fmt.Println("Show Logs")
+}
+
+func exitCode() {
+	fmt.Println("Exiting...")
+	fmt.Println("Good bye!")
+	os.Exit(0)
 }
