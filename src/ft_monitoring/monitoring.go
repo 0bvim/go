@@ -3,7 +3,7 @@ package main
 import "fmt"
 import "os"
 // module to work with post, get. 
-import "net/http"
+//import "net/http"
 
 func main(){
 	showIntro()
@@ -51,17 +51,33 @@ func readOption() int {
 
 func monitoring() {
 	fmt.Println("Monitoring")
-	site := "https://workspaces.42sp.org.br/login"
+	sites := []string{"https://intra.42.fr/","https://42evaluators.com/","https://find-peers.codam.nl/São-Paulo","https://game.42sp.org.br/", "https://workspaces.42sp.org.br/login"}
+	// use range in for instead old for i := 0; i < x; i++
+	for i, sites := range sites {
+		fmt.Println("Position", i, "Site", sites)
+	}
+	// to verify more than one website we need to create and array of string
+	// all arrays in goland have a fixed value
+	// var sites [4]string
+	// site[0] = "https://intra.42.fr/"
+	// site[1] = "https://42evaluators.com/"
+	// site[2] = "https://find-peers.codam.nl/São-Paulo"
+	// site[3] = "https://game.42sp.org.br/"
+	// site[4] = "https://workspaces.42sp.org.br/login"
+	// in golang we have another structure that is better than array
+	// it's called slice, it works like an array but don't need a fixed value
+	
+	
 	// function that do https requisition to site provided as argument.
 	// to show the return of http.Get function, you need to put it in a variable.
 	// this function have 2 returns, so you need to use two variables.
 	// first return is answer from Get call and other is if have an error
-	answer, _ := http.Get(site)
-	if answer.StatusCode == 200 {
-		fmt.Println("Site:", site, "Status Ok")
-	} else {
-		fmt.Println("Site:", site, "Not working. Status Code:", answer.StatusCode)
-	}
+	// answer, _ := http.Get(site)
+	// if answer.StatusCode == 200 {
+	// 	fmt.Println("Site:", site, "Status Ok")
+	// } else {
+	// 	fmt.Println("Site:", site, "Not working. Status Code:", answer.StatusCode)
+	// }
 }
 
 func showLogs() {
