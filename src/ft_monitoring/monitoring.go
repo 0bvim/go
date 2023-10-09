@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 import "os"
+// module to work with post, get. 
+import "net/http"
 
 func main(){
 	showIntro()
@@ -44,6 +46,14 @@ func readOption() int {
 
 func monitoring() {
 	fmt.Println("Monitoring")
+	site := "https://workspaces.42sp.org.br/login"
+	// function that do https requisition to site provided as argument.
+	// to show the return of http.Get function, you need to put it in a variable.
+	// this function have 2 returns, so you need to use two variables.
+	// first return is answer from Get call and other is if have an error
+	answer, err := http.Get(site)
+	fmt.Println(answer, err)
+	
 }
 
 func showLogs() {
