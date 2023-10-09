@@ -7,19 +7,24 @@ import "net/http"
 
 func main(){
 	showIntro()
-	showMenu()
-	option := readOption()
+	// in golang don't have while loop, only for. 
+	// if you want a infinity loop, you need to use for withou conditionals
+	for {
 
-	switch option {
-	case 1:
-		monitoring()
-	case 2:
-		showLogs()
-	case 0:
-		exitCode()
-	default:
-		fmt.Println("Unknown option")
-		os.Exit(-1)
+		showMenu()
+		option := readOption()
+
+		switch option {
+		case 1:
+			monitoring()
+		case 2:
+			showLogs()
+		case 0:
+			exitCode()
+		default:
+			fmt.Println("Unknown option")
+			os.Exit(-1)
+		}
 	}
 }
 
@@ -51,9 +56,12 @@ func monitoring() {
 	// to show the return of http.Get function, you need to put it in a variable.
 	// this function have 2 returns, so you need to use two variables.
 	// first return is answer from Get call and other is if have an error
-	answer, err := http.Get(site)
-	fmt.Println(answer, err)
-	
+	answer, _ := http.Get(site)
+	if answer.StatusCode == 200 {
+		fmt.Println("Site:", site, "Status Ok")
+	} else {
+		fmt.Println("Site:", site, "Not working. Status Code:", answer.StatusCode)
+	}
 }
 
 func showLogs() {
