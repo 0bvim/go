@@ -14,11 +14,11 @@ const	check = 5
 const	delay = 5
 
 func main(){
+	readFile()
 	showIntro()
 	// in golang don't have while loop, only for. 
 	// if you want a infinity loop, you need to use for withou conditionals
 	for {
-
 		showMenu()
 		option := readOption()
 
@@ -38,7 +38,7 @@ func main(){
 
 func showIntro() {
 	name := "Nivi"
-	version := 1.0
+	version := 1.3
 	fmt.Println("Hello,", name)
 	fmt.Println("Program Version:", version)
 }
@@ -60,15 +60,18 @@ func readOption() int {
 
 func monitoring() {
 	fmt.Println("Monitoring")
-	sites := []string{"https://intra.42.fr/","https://google.com/","https://find-peers.codam.nl/São-Paulo","https://game.42sp.org.br/", "https://workspaces.42sp.org.br/login"}
+	// this slice (sites) are commented because now I'll implement a slice to read a file
+	// sites := []string{"https://intra.42.fr/","https://google.com/","https://find-peers.codam.nl/São-Paulo","https://game.42sp.org.br/", "https://workspaces.42sp.org.br/login"}
 	// use range in for instead old for i := 0; i < x; i++
+
+	sites := readFile()
 	for i := 0; i < check; i++ {
 
 		for i, site := range sites {
 			fmt.Println("Checking Status", i, ":", site)
 			siteChecker(site)
 			fmt.Println("")
-		}
+		
 		time.Sleep(delay * time.Second)
 		fmt.Println("")
 	}
@@ -90,6 +93,20 @@ func monitoring() {
 	// to show the return of http.Get function, you need to put it in a variable.
 	// this function have 2 returns, so you need to use two variables.
 	// first return is answer from Get call and other is if have an error
+	}
+}
+
+func	readFile() []string {
+
+	var sites []string
+	file, err := os.Open("sites.txt")
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println(file)
+
+	return sites
 }
 
 func siteChecker(site string) {
