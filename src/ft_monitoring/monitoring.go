@@ -7,6 +7,10 @@ import (
 	"net/http"
 	// time module
 	"time"
+	// to open file and read all in a row, is a good choice.
+	//"io/ioutil"
+	//another module to read file
+	"bufio"
 )
 //creating constant variable in go
 
@@ -99,19 +103,32 @@ func monitoring() {
 func	readFile() []string {
 
 	var sites []string
+	// to read a file have two function, from 'os' module and from 'io/util' module
 	file, err := os.Open("sites.txt")
+	// io/util this function return an array of bytes
+	//file, err := ioutil.ReadFile("sites.txt")
+	// to print it, just print like a string
+	// handling errors
+	//another function to read file line per line
+	reader := bufio.NewReader(file)
 
+	line, err := reader.ReadString('\n')
+	fmt.Println(line)
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
-	fmt.Println(file)
+	// string(file) is like a casting in clang
+	fmt.Println(string(file))
 
 	return sites
 }
 
 func siteChecker(site string) {
-	answer, _ := http.Get(site)
+	answer, err := http.Get(site)
 
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
 	if answer.StatusCode == 200 {
 		fmt.Println("Site:", site, "Status Ok")
 	} else {
