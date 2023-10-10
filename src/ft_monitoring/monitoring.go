@@ -1,9 +1,17 @@
 package main
 
-import "fmt"
-import "os"
-// module to work with post, get. 
-//import "net/http"
+import (
+	"fmt"
+	"os"
+	// module to work with post, get. 
+	"net/http"
+	// time module
+	"time"
+)
+//creating constant variable in go
+
+const	check = 5
+const	delay = 5
 
 func main(){
 	showIntro()
@@ -45,17 +53,27 @@ func readOption() int {
 	var readOpt int
 	fmt.Scan(&readOpt)
 	fmt.Println("Chosen option:", readOpt)
+	fmt.Println("")
 
 	return readOpt
 }
 
 func monitoring() {
 	fmt.Println("Monitoring")
-	sites := []string{"https://intra.42.fr/","https://42evaluators.com/","https://find-peers.codam.nl/São-Paulo","https://game.42sp.org.br/", "https://workspaces.42sp.org.br/login"}
+	sites := []string{"https://intra.42.fr/","https://google.com/","https://find-peers.codam.nl/São-Paulo","https://game.42sp.org.br/", "https://workspaces.42sp.org.br/login"}
 	// use range in for instead old for i := 0; i < x; i++
-	for i, sites := range sites {
-		fmt.Println("Position", i, "Site", sites)
+	for i := 0; i < check; i++ {
+
+		for i, site := range sites {
+			fmt.Println("Checking Status", i, ":", site)
+			siteChecker(site)
+			fmt.Println("")
+		}
+		time.Sleep(delay * time.Second)
+		fmt.Println("")
 	}
+	fmt.Println("")
+	//site := "https://google.com"
 	// to verify more than one website we need to create and array of string
 	// all arrays in goland have a fixed value
 	// var sites [4]string
@@ -72,14 +90,17 @@ func monitoring() {
 	// to show the return of http.Get function, you need to put it in a variable.
 	// this function have 2 returns, so you need to use two variables.
 	// first return is answer from Get call and other is if have an error
-	// answer, _ := http.Get(site)
-	// if answer.StatusCode == 200 {
-	// 	fmt.Println("Site:", site, "Status Ok")
-	// } else {
-	// 	fmt.Println("Site:", site, "Not working. Status Code:", answer.StatusCode)
-	// }
 }
 
+func siteChecker(site string) {
+	answer, _ := http.Get(site)
+
+	if answer.StatusCode == 200 {
+		fmt.Println("Site:", site, "Status Ok")
+	} else {
+		fmt.Println("Site:", site, "Not working. Status Code:", answer.StatusCode)
+	}
+}
 func showLogs() {
 	fmt.Println("Show Logs")
 }
