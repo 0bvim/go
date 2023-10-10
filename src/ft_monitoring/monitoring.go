@@ -3,12 +3,14 @@ package main
 import (
 	"fmt"
 	"os"
+	// module to use string function
+	"strings"
 	// module to work with post, get. 
 	"net/http"
 	// time module
 	"time"
+	"io"
 	// to open file and read all in a row, is a good choice.
-	//"io/ioutil"
 	//another module to read file
 	"bufio"
 )
@@ -105,21 +107,27 @@ func	readFile() []string {
 	var sites []string
 	// to read a file have two function, from 'os' module and from 'io/util' module
 	file, err := os.Open("sites.txt")
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
 	// io/util this function return an array of bytes
 	//file, err := ioutil.ReadFile("sites.txt")
 	// to print it, just print like a string
 	// handling errors
 	//another function to read file line per line
+	
 	reader := bufio.NewReader(file)
-
-	line, err := reader.ReadString('\n')
-	fmt.Println(line)
-	if err != nil {
-		fmt.Println("Error:", err)
+	for {
+		line, err := reader.ReadString('\n')
+		// use string module to trim lines	
+		line = strings.TrimSpace(line)
+		fmt.Println(line)
+		// io.EOF is the function that detect when file ends.
+		if err == io.EOF {
+			break
+		}
+		// string(file) is like a casting in clang
 	}
-	// string(file) is like a casting in clang
-	fmt.Println(string(file))
-
 	return sites
 }
 
