@@ -1,2 +1,11 @@
-https://intra.42.fr/- online: true
-https://google.com/- online: true
+10/11/2023 01:31:38AM - https://intra.42.fr/- online: true
+10/11/2023 01:31:43AM - https://google.com/- online: true
+10/11/2023 01:31:51AM - https://find-peers.codam.nl/São-Paulo- online: true
+10/11/2023 01:31:57AM - https://game.42sp.org.br/- online: true
+10/11/2023 01:32:03AM - https://workspaces.42sp.org.br/login- online: true
+10/11/2023 01:32:09AM - https://intra.42.fr/- online: true
+10/11/2023 01:32:14AM - https://google.com/- online: true
+10/11/2023 01:32:21AM - https://find-peers.codam.nl/São-Paulo- online: true
+10/11/2023 01:32:27AM - https://game.42sp.org.br/- online: true
+10/11/2023 01:32:32AM - https://workspaces.42sp.org.br/login- online: true
+10/11/2023 01:32:38AM - https://intra.42.fr/- online: true

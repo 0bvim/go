@@ -174,7 +174,8 @@ func logReg(site string, status bool) {
 	}
 	// this function is to write a string inside of a file
 	// need to import module strconv to use function to convert bool to string
-	file.WriteString(site + "- online: " + strconv.FormatBool(status) + "\n")
+	// time.Now() is a function to print current time and you can format it too
+	file.WriteString(time.Now().Format("01/02/2006 03:04:05PM") + " - " + site + "- online: " + strconv.FormatBool(status) + "\n")
 	// if not error, print content of file
 	file.Close()
 }
