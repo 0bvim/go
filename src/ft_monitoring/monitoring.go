@@ -20,7 +20,7 @@ const	check = 5
 const	delay = 5
 
 func main(){
-	readFile()
+	logReg("false.com.br", true)
 	showIntro()
 	// in golang don't have while loop, only for. 
 	// if you want a infinity loop, you need to use for withou conditionals
@@ -133,6 +133,8 @@ func	readFile() []string {
 		}
 		// string(file) is like a casting in clang
 	}
+	// now we need to colose fd from read
+	file.Close()
 	return sites
 }
 
@@ -144,8 +146,10 @@ func siteChecker(site string) {
 	}
 	if answer.StatusCode == 200 {
 		fmt.Println("Site:", site, "Status Ok")
+		logReg (site, true)
 	} else {
 		fmt.Println("Site:", site, "Not working. Status Code:", answer.StatusCode)
+		logReg (site, true)
 	}
 }
 func showLogs() {
@@ -156,4 +160,17 @@ func exitCode() {
 	fmt.Println("Exiting...")
 	fmt.Println("Good bye!")
 	os.Exit(0)
+}
+
+func logReg(site string, status bool) {
+	// opening file with OpenFile, with this function you can create a file if it not exist
+	// O_RDWR to read and write in this file, O_CREATE to creat this file if not exist 0666 is the permission of file
+	file, err := os.OpenFile("log.txt", os.O_RDWR | os.O_CREATE, 0666)
+	
+	// if error return err printed in stdou
+	if err != nil {
+		fmt.Println(err)
+	}
+	// if not error, print content of file
+	fmt.Println(file)
 }
