@@ -9,6 +9,7 @@ import (
 	"time"
 	"io"
 	// to open file and read all in a row, is a good choice.
+	"io/ioutil"
 	//another module to read file
 	"bufio"
 	// module to use string function
@@ -33,7 +34,7 @@ func main(){
 		case 1:
 			monitoring()
 		case 2:
-			showLogs()
+			printLogs()
 		case 0:
 			exitCode()
 		default:
@@ -178,4 +179,14 @@ func logReg(site string, status bool) {
 	file.WriteString(time.Now().Format("01/02/2006 03:04:05PM") + " - " + site + "- online: " + strconv.FormatBool(status) + "\n")
 	// if not error, print content of file
 	file.Close()
+}
+
+func	printLogs() {
+
+	file, err := ioutil.ReadFile("log.txt")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+ 	fmt.Println(string(file))
 }
