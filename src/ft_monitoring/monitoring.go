@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	// module to use string function
-	"strings"
 	// module to work with post, get. 
 	"net/http"
 	// time module
@@ -13,6 +11,10 @@ import (
 	// to open file and read all in a row, is a good choice.
 	//another module to read file
 	"bufio"
+	// module to use string function
+	"strings"
+	// module to convert from many kind of types to string
+	"strconv"
 )
 //creating constant variable in go
 
@@ -20,7 +22,6 @@ const	check = 5
 const	delay = 5
 
 func main(){
-	logReg("false.com.br", true)
 	showIntro()
 	// in golang don't have while loop, only for. 
 	// if you want a infinity loop, you need to use for withou conditionals
@@ -164,13 +165,16 @@ func exitCode() {
 
 func logReg(site string, status bool) {
 	// opening file with OpenFile, with this function you can create a file if it not exist
-	// O_RDWR to read and write in this file, O_CREATE to creat this file if not exist 0666 is the permission of file
-	file, err := os.OpenFile("log.txt", os.O_RDWR | os.O_CREATE, 0666)
+	// O_RDWR to read and write in this file, O_APPEND to keep all lines, O_CREATE to creat this file if not exist 0666 is the permission of file
+	file, err := os.OpenFile("log.txt", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
 	
 	// if error return err printed in stdou
 	if err != nil {
 		fmt.Println(err)
 	}
+	// this function is to write a string inside of a file
+	// need to import module strconv to use function to convert bool to string
+	file.WriteString(site + "- online: " + strconv.FormatBool(status) + "\n")
 	// if not error, print content of file
-	fmt.Println(file)
+	file.Close()
 }

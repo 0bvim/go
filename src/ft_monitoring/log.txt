@@ -1,0 +1,2 @@
+https://intra.42.fr/- online: true
+https://google.com/- online: true
