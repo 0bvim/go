@@ -119,9 +119,14 @@ func	readFile() []string {
 	reader := bufio.NewReader(file)
 	for {
 		line, err := reader.ReadString('\n')
+		// if EOL if a \n (empty line) program crash cuz try to do a http call to a incorrect link
+		if line == "" {
+			break
+		}
 		// use string module to trim lines	
 		line = strings.TrimSpace(line)
-		fmt.Println(line)
+		// append read/trimmed content to site slice
+		sites = append(sites, line)
 		// io.EOF is the function that detect when file ends.
 		if err == io.EOF {
 			break
