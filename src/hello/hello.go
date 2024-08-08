@@ -17,6 +17,7 @@ func main(){
 	var age int
 	fmt.Println("Hello Mr.", name3, "Your age is:", age)
 
+	var command int
 	fmt.Scan(&command)
 	fmt.Println("Value of command var:", command)
 
