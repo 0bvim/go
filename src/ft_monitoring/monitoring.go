@@ -1,22 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"net/http"
-	"time"
-	"io"
-	"io/ioutil"
 	"bufio"
-	"strings"
+	"fmt"
+	"io"
+	"net/http"
+	"os"
 	"strconv"
+	"strings"
+	"time"
 )
 
-const	check = 2
-const	delay = 5
+const check = 2
+const delay = 5
 
-func main(){
-	showIntro()
+func main() {
 	for {
 		showMenu()
 		option := readOption()
@@ -72,7 +70,7 @@ func monitoring() {
 	}
 }
 
-func	readFile() []string {
+func readFile() []string {
 
 	var sites []string
 	file, err := os.Open("sites.txt")
@@ -103,10 +101,10 @@ func siteChecker(site string) {
 	}
 	if answer.StatusCode == 200 {
 		fmt.Println("Site:", site, "Status Ok")
-		logReg (site, true)
+		logReg(site, true)
 	} else {
 		fmt.Println("Site:", site, "Not working. Status Code:", answer.StatusCode)
-		logReg (site, true)
+		logReg(site, true)
 	}
 }
 func showLogs() {
@@ -120,7 +118,7 @@ func exitCode() {
 }
 
 func logReg(site string, status bool) {
-	file, err := os.OpenFile("log.txt", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
+	file, err := os.OpenFile("log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -129,7 +127,7 @@ func logReg(site string, status bool) {
 }
 
 func printLogs() {
-	file, err := ioutil.ReadFile("log.txt")
+	file, err := os.ReadFile("log.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
