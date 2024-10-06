@@ -1,4 +1,4 @@
 github.com/0bvim/dog v0.0.0-20241006182524-417bce727e09 h1:egpwgLvmNmmsNpWtG5CTFjfsEXYK7kpMYzZ8/EGb1cY=
 github.com/0bvim/dog v0.0.0-20241006182524-417bce727e09/go.mod h1:1Wp4iWokcAXYKn3QFFsFyn7PmluHZZnnCNoczKcufwM=
-github.com/0bvim/puppy v0.0.0-20241006182848-082f8777bcb4 h1:nTzPM3iLhzN40c80apoiccF7LS7z9DWEz5mWJRqSIag=
-github.com/0bvim/puppy v0.0.0-20241006182848-082f8777bcb4/go.mod h1:1DQPwBYScc/NE+kFNOQqr+1rpmDfV77J89BieqCy74k=
+github.com/0bvim/puppy v1.1.0 h1:NAxU+/pnC5JewjeBGVRx23nckqKW21y1dXaln3wfmx0=
+github.com/0bvim/puppy v1.1.0/go.mod h1:1DQPwBYScc/NE+kFNOQqr+1rpmDfV77J89BieqCy74k=
