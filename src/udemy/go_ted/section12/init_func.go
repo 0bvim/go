@@ -5,6 +5,10 @@ import (
 	"math/rand"
 )
 
+func init() {
+	fmt.Println("this is from init function")
+}
+
 func main() {
 	x := rand.Intn(300)
 	fmt.Printf("Value of x is %v\t", x)
