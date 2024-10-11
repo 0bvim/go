@@ -14,4 +14,24 @@ func main() {
 	for i, v := range m {
 		fmt.Printf("Name %v\tAge %v\n", i, v)
 	}
+
+	fmt.Println()
+
+	if age, ok := m["James"]; ok {
+		fmt.Println("The age is", age)
+	} else {
+		fmt.Println("Not match")
+	}
+
+	if age, ok := m["O"]; ok {
+		fmt.Println("The age is", age)
+	} else {
+		fmt.Println("Not match")
+	}
+
+	if age, ok := m["n"]; !ok {
+		fmt.Println("Not match")
+	} else {
+		fmt.Println("The age is", age)
+	}
 }
