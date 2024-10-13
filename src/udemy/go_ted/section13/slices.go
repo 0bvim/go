@@ -15,4 +15,12 @@ func main() {
 		// to print index and value
 		fmt.Printf("%v - %v\n", i, v)
 	}
+	fmt.Println()
+
+	// new values for the follwing test
+	xs = []string{"Al", "Mon", "De", "Ga"}
+	// you can use too blank identifier ('_')to ignore index counter and just get the value
+	for _, v := range xs {
+		fmt.Printf("%v\n", v)
+	}
 }
