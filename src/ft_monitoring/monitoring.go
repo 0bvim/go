@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"net/http"
 	"os"
 	"strconv"
@@ -11,8 +10,17 @@ import (
 	"time"
 )
 
-const check = 2
-const delay = 5
+const (
+	check = 2
+	delay = 5
+)
+
+func init() {
+	name := "Nivi"
+	version := 1.5
+	fmt.Println("Hello,", name)
+	fmt.Println("Program Version:", version)
+}
 
 func main() {
 	for {
@@ -33,24 +41,16 @@ func main() {
 	}
 }
 
-func showIntro() {
-	name := "Nivi"
-	version := 1.5
-	fmt.Println("Hello,", name)
-	fmt.Println("Program Version:", version)
-}
-
 func showMenu() {
-	fmt.Println("1- Check Status")
-	fmt.Println("2- Show Logs")
-	fmt.Println("0- Exit")
+	fmt.Println("1 - Check Status")
+	fmt.Println("2 - Show Logs")
+	fmt.Println("0 - Exit")
 }
 
 func readOption() int {
 	var readOpt int
 	fmt.Scan(&readOpt)
-	fmt.Println("Chosen option:", readOpt)
-	fmt.Println("")
+	fmt.Println("Chosen option:\n", readOpt)
 
 	return readOpt
 }
@@ -77,19 +77,18 @@ func readFile() []string {
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
-	reader := bufio.NewReader(file)
-	for {
-		line, err := reader.ReadString('\n')
-		if line == "" {
-			break
+	defer file.Close()
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		if line != "" {
+			sites = append(sites, line)
 		}
-		line = strings.TrimSpace(line)
-		sites = append(sites, line)
-		if err == io.EOF {
-			break
+
+		if err := scanner.Err(); err != nil {
+			return sites
 		}
 	}
-	file.Close()
 	return sites
 }
 
@@ -107,6 +106,7 @@ func siteChecker(site string) {
 		logReg(site, true)
 	}
 }
+
 func showLogs() {
 	fmt.Println("Show Logs")
 }
