@@ -32,8 +32,21 @@ func main() {
 		age:   27,
 	}
 
+	// anonymous struct
+	p1 := struct {
+		first string
+		last  string
+		age   int
+	}{
+		first: "James",
+		last:  "Bond",
+		age:   32,
+	}
+
 	fmt.Println(sa1)
 	fmt.Println(p2)
+	fmt.Println(p1)
+	fmt.Printf("P1 type = %T\n", p1)
 
 	fmt.Printf("%T\t%#v\n", sa1, p2)
 	fmt.Printf("sa1: %v\n", sa1)
