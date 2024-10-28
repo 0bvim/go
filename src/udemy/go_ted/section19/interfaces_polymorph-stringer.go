@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 )
 
@@ -30,6 +31,10 @@ func main() {
 
 	var c count = 42
 
-	fmt.Println(b)
-	fmt.Println(c)
+	logInfo(b)
+	logInfo(c)
+}
+
+func logInfo(s fmt.Stringer) {
+	log.Println("Log from section19:", s.String())
 }
