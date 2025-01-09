@@ -20,9 +20,11 @@ func main() {
 // specify 'return total' just return do the job!
 func sum(ii []int) (total int) {
 	total = 0
+	
 	for _, v := range ii {
 		total += v
 	}
+	
 	return
 }
 
@@ -32,22 +34,27 @@ func foo() int {
 }
 
 func bar() (int, string) {
-	return 42, "Jinboo" +
-		""
+	return 42, "Jinboo" + ""
 }
 
+// hands on 59
 func foo2(numbers ...int) int {
 	total := 0
+	
 	for _, n := range numbers {
 		total += n
 	}
+	
 	return total
 }
 
 func bar2(numbers []int) (total int) {
 	total = 0
+	
 	for _, n := range numbers {
 		total += n
 	}
+	
 	return
 }
+
