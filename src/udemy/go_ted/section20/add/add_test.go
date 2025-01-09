@@ -32,3 +32,12 @@ func TestDoMathAdd(t *testing.T) {
 		t.Errorf("Add(1, 2)=%d; want 3", total)
 	}
 }
+
+func TestParadise(t *testing.T) {
+	location := "Canada"
+	result := Paradise(location)
+
+	if result != "My idea of paradise is: "+location {
+		t.Errorf("Paradise(%q)=%q; want %q", location, result, location)
+	}
+}
