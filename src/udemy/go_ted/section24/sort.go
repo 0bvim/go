@@ -15,5 +15,4 @@ func main() {
 	ss := []string{"Nivi", "Stete", "Lila"}
 	sort.StringSlice(ss).Sort() // or sort.Strings(ss)
 	fmt.Println("Sorted string slice", ss)
-
 }
