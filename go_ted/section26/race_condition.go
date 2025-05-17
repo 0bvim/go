@@ -30,6 +30,7 @@ func withoutRaceCondition() {
 
 	fmt.Println("Final Counter:", counter)
 }
+
 func withRaceCondition() {
 	counter := 0
 	const gs = 100
