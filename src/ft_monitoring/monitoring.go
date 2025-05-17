@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -10,9 +11,15 @@ import (
 	"time"
 )
 
+type Options string
+
 const (
 	check = 2
 	delay = 5
+
+	Status Options = "Status"
+	Logs   Options = "Logs"
+	Exit   Options = "Exit"
 )
 
 func init() {
@@ -24,15 +31,12 @@ func init() {
 
 func main() {
 	for {
-		showMenu()
-		option := readOption()
-
-		switch option {
-		case 1:
+		switch readOption() {
+		case Status:
 			monitoring()
-		case 2:
+		case Logs:
 			printLogs()
-		case 0:
+		case Exit:
 			exitCode()
 		default:
 			fmt.Println("Unknown option")
@@ -42,17 +46,26 @@ func main() {
 }
 
 func showMenu() {
-	fmt.Println("1 - Check Status")
-	fmt.Println("2 - Show Logs")
-	fmt.Println("0 - Exit")
+	fmt.Println("1 - Check Status\n", "2 - Show Logs\n", "0 - Exit")
 }
 
-func readOption() int {
+func readOption() Options {
+	showMenu()
 	var readOpt int
 	fmt.Scan(&readOpt)
-	fmt.Println("Chosen option:\n", readOpt)
 
-	return readOpt
+	opts := map[int]Options{
+		1: Status,
+		2: Logs,
+		0: Exit,
+	}
+
+	var opt Options
+	if opt, exists := opts[readOpt]; exists {
+		fmt.Println("Chosen option:\n", opt)
+	}
+
+	return opt
 }
 
 func monitoring() {
@@ -78,6 +91,7 @@ func readFile() []string {
 		fmt.Println("Error:", err)
 	}
 	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
@@ -89,20 +103,21 @@ func readFile() []string {
 			return sites
 		}
 	}
+
 	return sites
 }
 
 func siteChecker(site string) {
-	answer, err := http.Get(site)
+	response, err := http.Get(site)
 
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
-	if answer.StatusCode == 200 {
+	if response.StatusCode == 200 {
 		fmt.Println("Site:", site, "Status Ok")
 		logReg(site, true)
 	} else {
-		fmt.Println("Site:", site, "Not working. Status Code:", answer.StatusCode)
+		fmt.Println("Site:", site, "Not working. Status Code:", response.StatusCode)
 		logReg(site, true)
 	}
 }
@@ -112,8 +127,7 @@ func showLogs() {
 }
 
 func exitCode() {
-	fmt.Println("Exiting...")
-	fmt.Println("Good bye!")
+	fmt.Println("Exiting...\nGood bye!")
 	os.Exit(0)
 }
 
@@ -122,14 +136,24 @@ func logReg(site string, status bool) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	file.WriteString(time.Now().Format("01/02/2006 03:04:05PM") + " - " + site + "- online: " + strconv.FormatBool(status) + "\n")
-	file.Close()
+	defer func() {
+		if err := file.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	file.WriteString(time.Now().
+		Format("01/02/2006 03:04:05PM") +
+		" - " + site +
+		"- online: " +
+		strconv.FormatBool(status) + "\n")
 }
 
 func printLogs() {
 	file, err := os.ReadFile("log.txt")
 	if err != nil {
-		fmt.Println(err)
+		log.Default().Println(err)
 	}
+
 	fmt.Println(string(file))
 }

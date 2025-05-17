@@ -1,30 +1,6 @@
-package main
-
-import (
-	"fmt"
-	"os"
-	// module to work with post, get. 
-	"net/http"
-	// time module
-	"time"
-	"io"
-	// to open file and read all in a row, is a good choice.
-	"io/ioutil"
-	//another module to read file
-	"bufio"
-	// module to use string function
-	"strings"
-	// module to convert from many kind of types to string
-	"strconv"
-)
-//creating constant variable in go
-
-const	check = 5
-const	delay = 5
-
-func main(){
+func main() {
 	showIntro()
-	// in golang don't have while loop, only for. 
+	// in golang don't have while loop, only for.
 	// if you want a infinity loop, you need to use for withou conditionals
 	for {
 		showMenu()
@@ -79,32 +55,31 @@ func monitoring() {
 			fmt.Println("Checking Status", i, ":", site)
 			siteChecker(site)
 			fmt.Println("")
-		
-		time.Sleep(delay * time.Second)
+
+			time.Sleep(delay * time.Second)
+			fmt.Println("")
+		}
 		fmt.Println("")
-	}
-	fmt.Println("")
-	//site := "https://google.com"
-	// to verify more than one website we need to create and array of string
-	// all arrays in goland have a fixed value
-	// var sites [4]string
-	// site[0] = "https://intra.42.fr/"
-	// site[1] = "https://42evaluators.com/"
-	// site[2] = "https://find-peers.codam.nl/São-Paulo"
-	// site[3] = "https://game.42sp.org.br/"
-	// site[4] = "https://workspaces.42sp.org.br/login"
-	// in golang we have another structure that is better than array
-	// it's called slice, it works like an array but don't need a fixed value
-	
-	
-	// function that do https requisition to site provided as argument.
-	// to show the return of http.Get function, you need to put it in a variable.
-	// this function have 2 returns, so you need to use two variables.
-	// first return is answer from Get call and other is if have an error
+		//site := "https://google.com"
+		// to verify more than one website we need to create and array of string
+		// all arrays in goland have a fixed value
+		// var sites [4]string
+		// site[0] = "https://intra.42.fr/"
+		// site[1] = "https://42evaluators.com/"
+		// site[2] = "https://find-peers.codam.nl/São-Paulo"
+		// site[3] = "https://game.42sp.org.br/"
+		// site[4] = "https://workspaces.42sp.org.br/login"
+		// in golang we have another structure that is better than array
+		// it's called slice, it works like an array but don't need a fixed value
+
+		// function that do https requisition to site provided as argument.
+		// to show the return of http.Get function, you need to put it in a variable.
+		// this function have 2 returns, so you need to use two variables.
+		// first return is answer from Get call and other is if have an error
 	}
 }
 
-func	readFile() []string {
+func readFile() []string {
 
 	var sites []string
 	// to read a file have two function, from 'os' module and from 'io/util' module
@@ -117,7 +92,7 @@ func	readFile() []string {
 	// to print it, just print like a string
 	// handling errors
 	//another function to read file line per line
-	
+
 	reader := bufio.NewReader(file)
 	for {
 		line, err := reader.ReadString('\n')
@@ -125,7 +100,7 @@ func	readFile() []string {
 		if line == "" {
 			break
 		}
-		// use string module to trim lines	
+		// use string module to trim lines
 		line = strings.TrimSpace(line)
 		// append read/trimmed content to site slice
 		sites = append(sites, line)
@@ -148,10 +123,10 @@ func siteChecker(site string) {
 	}
 	if answer.StatusCode == 200 {
 		fmt.Println("Site:", site, "Status Ok")
-		logReg (site, true)
+		logReg(site, true)
 	} else {
 		fmt.Println("Site:", site, "Not working. Status Code:", answer.StatusCode)
-		logReg (site, true)
+		logReg(site, true)
 	}
 }
 func showLogs() {
@@ -167,8 +142,8 @@ func exitCode() {
 func logReg(site string, status bool) {
 	// opening file with OpenFile, with this function you can create a file if it not exist
 	// O_RDWR to read and write in this file, O_APPEND to keep all lines, O_CREATE to creat this file if not exist 0666 is the permission of file
-	file, err := os.OpenFile("log.txt", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
-	
+	file, err := os.OpenFile("log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+
 	// if error return err printed in stdou
 	if err != nil {
 		fmt.Println(err)
@@ -181,12 +156,12 @@ func logReg(site string, status bool) {
 	file.Close()
 }
 
-func	printLogs() {
+func printLogs() {
 
 	file, err := ioutil.ReadFile("log.txt")
 
 	if err != nil {
 		fmt.Println(err)
 	}
- 	fmt.Println(string(file))
+	fmt.Println(string(file))
 }
