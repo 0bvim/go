@@ -53,8 +53,10 @@ func withRaceCondition() {
 	fmt.Println("Final Counter:", counter)
 }
 
-// code with race condition
 func main() {
+	// code with race condition
 	// withRaceCondition()
+
+	// code without race condition
 	withoutRaceCondition()
 }
