@@ -14,7 +14,7 @@ Here are some excellent resources I'm using to learn Go:
 
 [W3Schools Go Tutorial](https://www.w3schools.com/go/go_getting_started.php)
 
-W3Schools offers a comprehensive and beginner-friendly introduction to Go. It's a great place to start if you're new to the language.
+W3Schools offers a comprehensive and beginner-friendly introduction to Go.
 
 ### 2. Official Go Documentation
 
@@ -44,5 +44,3 @@ While this is primarily a personal learning repository, I welcome suggestions, c
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-Happy coding!
